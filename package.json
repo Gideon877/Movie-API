@@ -1,0 +1,28 @@
+{
+  "name": "movie-app-api",
+  "version": "1.0.0",
+  "description": "JSON API",
+  "main": "index.js",
+  "author": "Thabang Gideon Magaola",
+  "license": "MIT",
+  "dependencies": {
+    "apollo-server": "^2.12.0",
+    "apollo-server-express": "^2.12.0",
+    "bcrypt": "^4.0.1",
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "express-graphql": "^0.9.0",
+    "express-session": "^1.17.0",
+    "graphql": "^15.0.0",
+    "graphql-tools": "^5.0.0",
+    "jsonwebtoken": "^8.5.1",
+    "lodash": "^4.17.15",
+    "moment": "^2.24.0",
+    "mongoose": "^5.9.9",
+    "yarn": "^1.22.4"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.3"
+  }
+}

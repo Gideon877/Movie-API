@@ -48,7 +48,7 @@ module.exports = {
                     vote_average: voteAverage,
                 });
                 const addedMovie = await Movie.findOne({ title: params.movie.title, creator: userId });
-                if(addedMovie) {
+                if (addedMovie) {
                     throw new Error('Movie already liked');
                 }
 
@@ -64,6 +64,23 @@ module.exports = {
 
                 return true;
             } catch (error) {
+                return false;
+            }
+        },
+
+        removeMovie: async (parent, params) => {
+            try {
+                const { userId, movieId } = params;
+                const user = await User.findById(userId);
+                if (!user) {
+                    throw new Error('User not found')
+                }
+                user.createdMovies = user.createdMovies.filter(id => movieId !== id);
+                await user.save();
+                await Movie.deleteOne({ _id: movieId });
+                return true;
+            } catch (error) {
+                console.log(error)
                 return false;
             }
         }

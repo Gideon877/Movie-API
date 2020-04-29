@@ -19,7 +19,7 @@ module.exports = gql`
         backdropPath: String
         originalLanguage: String!
         overview: String!
-        popularity: Int
+        popularity: Float
         posterPath: String
         releaseDate: String!
         title: String!
@@ -76,6 +76,7 @@ module.exports = gql`
         createUser(user: UserInput): Boolean
         signIn(username: String!, password: String!): Auth!
         updateUser(user: UserInput): Boolean
+        removeMovie(movieId: ID!, userId: ID!): Boolean
     }
     schema {
         query: Query,

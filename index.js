@@ -8,7 +8,7 @@ const isAuth = require('./src/middleware/is-auth')
 const app = new ApolloServer({ 
 	typeDefs: graphqlSchema, 
 	resolvers: graphqlResolvers,
-	// context: isAuth
+	context: isAuth
 });
 
 

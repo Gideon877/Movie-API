@@ -25,7 +25,7 @@ const UPDATE_USER = gql`
     }
 `
 
-const UpdateAccount = ({ userId }) => {
+const UpdateAccount = ({ userId, user }) => {
     const { addToast } = useToasts();
 
     const auth = useContext(AuthContext);

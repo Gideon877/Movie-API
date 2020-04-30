@@ -20,7 +20,7 @@ const GET_USER = gql`
     }
 `
 
-const MainLayout = () => {
+const MainLayout = (props) => {
     const auth = useContext(AuthContext);
     const [searched, setResult] = useState([])
     const [popular, setPopular] = useState([]);
@@ -82,8 +82,8 @@ const MainLayout = () => {
                 }}
             />
             <br />
-            {(searched.length > 0) && <MediaCard movies={searched} />}
-            {popular.length > 0 && <MediaCard movies={popular} />}
+            {(searched.length > 0) && <MediaCard {...props} movies={searched} />}
+            {popular.length > 0 && <MediaCard {...props} movies={popular} />}
         </Responsive>
     )
 }

@@ -16,8 +16,9 @@ module.exports = {
             }
         },
 
-        findUserMovies: async (parent, params) => {
+        findUserMovies: async (parent, params, context) => {
             try {
+                if (context.code === 404) throw new Error(context.message);
                 const movie = await Movie.findById(params.movieId);
                 return transformMovie(movie)
             } catch (error) {
@@ -27,7 +28,8 @@ module.exports = {
     },
 
     Mutation: {
-        createMovie: async (parent, params) => {
+        createMovie: async (parent, params, context) => {
+            if (context.code === 404) throw new Error(context.message);
             try {
                 const {
                     userId,
@@ -47,7 +49,9 @@ module.exports = {
                     release_date: releaseDate,
                     vote_average: voteAverage,
                 });
+                
                 const addedMovie = await Movie.findOne({ title: params.movie.title, creator: userId });
+                
                 if (addedMovie) {
                     throw new Error('Movie already liked');
                 }
@@ -68,7 +72,8 @@ module.exports = {
             }
         },
 
-        removeMovie: async (parent, params) => {
+        removeMovie: async (parent, params, context) => {
+            if (context.code === 404) throw new Error(context.message);
             try {
                 const { userId, movieId } = params;
                 const user = await User.findById(userId);
@@ -80,7 +85,6 @@ module.exports = {
                 await Movie.deleteOne({ _id: movieId });
                 return true;
             } catch (error) {
-                console.log(error)
                 return false;
             }
         }

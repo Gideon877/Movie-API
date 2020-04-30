@@ -9,6 +9,7 @@ import { useMutation } from 'react-apollo';
 import { useToasts } from 'react-toast-notifications'
 import { AuthContext } from 'context/auth-context';
 
+const _ = require('lodash');
 
 const CREATE_USER = gql`
     mutation createUser($user: UserInput) {
@@ -41,19 +42,19 @@ const Registration = (props) => {
 
                 addUser({ variables: { user: { ...fields } } })
                     .then(res => {
-                        console.log(res.data.createUser);
                         if (res.data.createUser) {
                             addToast('Registration successfull', {
                                 appearance: 'success', autoDismiss: true
                             })
                             auth.signedUp();
-                           return;
+                            return;
                         }
                         setErrors({ api: 'User already exists.' })
                         addToast('Registration fail.', { appearance: 'error', autoDismiss: true })
-
                     })
-                    .catch(err => console.log(err))
+                    .catch(err => addToast(_.get(err, ["message"]), { appearance: 'error', autoDismiss: true }))
+                    // todo: add proper error handling
+
             }}
         >
             {({ errors, status, touched }) => (

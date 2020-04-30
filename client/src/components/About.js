@@ -2,7 +2,7 @@ import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { Icon, Header, Divider, Breadcrumb } from 'semantic-ui-react'
 
-const About = () => {
+const About = (props) => {
     return (
         <Fragment>
             <Header as='h2' icon textAlign='center'>

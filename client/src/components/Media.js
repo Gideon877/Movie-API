@@ -20,7 +20,7 @@ const GET_USER = gql`
     }
 `
 
-const Media = () => {
+const Media = (props) => {
     const auth = useContext(AuthContext);
 
     const { loading, data } = useQuery(GET_USER, {
@@ -39,58 +39,39 @@ const Media = () => {
         </Segment>
     }
     const movies = data.getUser.createdMovies;
-    console.log(movies);
-
-
-    const movieList = movies.map(movie => (
-        (movie.posterPath) ?
-            <List.Item>
-                <List.Content floated='right'>
-                    <Button.Group>
-                        <Button color='teal'>More</Button>
-                        <Button.Or icon='setting' />
-                        <Button color='yellow' >Like</Button>
-                    </Button.Group>
-                </List.Content>
-                <Image avatar src={'https://image.tmdb.org/t/p/w500' + movie.posterPath} />
-                <List.Content>{movie.title}</List.Content></List.Item>
-
-            : ''
-
-    ))
-
+    
     return <Fragment>
-        <Header as='h2' icon textAlign='center'>
-            <Icon name='film ' circular />
-                Media
-                <Header.Subheader>
-                Manage your playlists (create and update)
-                </Header.Subheader>
+    <Header as='h2' icon textAlign='center'>
+    <Icon name='film ' circular />
+    Media
+    <Header.Subheader>
+    Manage your playlists (create and update)
+    </Header.Subheader>
+    </Header>
+    <Divider horizontal>
+    <Header as='h4'>
+    <Icon name='list ul' />
+    Playlist
+    </Header>
+    </Divider>
+    
+    {(!movies)
+        ?
+        <h4>NO movie Fam</h4>
+        
+        : <Fragment>
+        <Header as='h2' attached='top'>
+        My List
         </Header>
-        <Divider horizontal>
-            <Header as='h4'>
-                <Icon name='list ul' />
-                Playlist
-                </Header>
-        </Divider>
-
-        {(!movies)
-            ?
-            <h4>NO movie Fam</h4>
-
-            : <Fragment>
-                <Header as='h2' attached='top'>
-                    My List
-                </Header>
-                <Segment attached>
-                    <UserMediaCard />
-                </Segment>
-
-            </Fragment>
-
-        }
+        <Segment attached>
+        <UserMediaCard updateUser={props.updateUser}/>
+        </Segment>
+        
+        </Fragment>
+        
+    }
     </Fragment>
-
+    
 }
 
 Media.propTypes = {
@@ -98,3 +79,19 @@ Media.propTypes = {
 }
 
 export default Media;
+    // const movieList = movies.map(movie => (
+    //     (movie.posterPath) ?
+    //         <List.Item>
+    //             <List.Content floated='right'>
+    //                 <Button.Group>
+    //                     <Button color='teal'>More</Button>
+    //                     <Button.Or icon='setting' />
+    //                     <Button color='yellow' >Like</Button>
+    //                 </Button.Group>
+    //             </List.Content>
+    //             <Image avatar src={'https://image.tmdb.org/t/p/w500' + movie.posterPath} />
+    //             <List.Content>{movie.title}</List.Content></List.Item>
+    
+    //         : ''
+    
+    // ))

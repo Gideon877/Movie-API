@@ -13,13 +13,14 @@ const ADD_MOVIE = gql`
     }
 `
 
-const AddMovieIcon = ({ movie }) => {
+const AddMovieIcon = ({ movie, updateUser}) => {
     const auth = useContext(AuthContext);
     const [addMovie] = useMutation(ADD_MOVIE);
     const { addToast } = useToasts();
 
     const handleLike = () => {
         addToast('Liked', { appearance: 'success', autoDismiss: true });
+        updateUser();
         // updateData(movies.filter(item => item.title !== movies.title))
     }
 

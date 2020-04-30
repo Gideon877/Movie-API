@@ -38,7 +38,7 @@ const style = {
     }
 }
 
-const UserMediaCard = () => {
+const UserMediaCard = ({ updateUser }) => {
     const auth = useContext(AuthContext);
 
     const { loading, data, refetch } = useQuery(GET_USER, {
@@ -75,7 +75,10 @@ const UserMediaCard = () => {
                                     <p class="card-text" style={style.overview}>{movie.overview.slice(0, 300)}{(movie.overview.length) > 300 ? '...' : ''}</p>
                                     <p class="card-text"><small class="text-muted" style={style.subHead}><Icon name='calendar alternate outline' /> {movie.releaseDate}</small></p>
                                     <Divider />
-                                    <RemoveMovieIcon onSubmit={()=> refetch()} movieId={movie._id} />
+                                    <RemoveMovieIcon onSubmit={() => {
+                                        updateUser();
+                                        refetch();
+                                    }} movieId={movie._id} />
                                     {/**<ViewMovieIcon movie={movie} /> */}
                                     <Rating maxRating={5} defaultRating={Math.round(movie.voteAverage / 2)} disabled icon='star' size='mini' />
                                 </div>

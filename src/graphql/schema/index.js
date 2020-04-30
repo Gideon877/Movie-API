@@ -66,7 +66,9 @@ module.exports = gql`
     type Query {
         movies: [Movie!]!
         playlists: [Playlist!]!
-        users: [User!]!
+        # findUserPlaylists: [Playlist!] //todo: add auth
+        # getPlaylistById(playlistId: ID!): Playlist! //todo: add auth
+        users: [User!]! #only admin
         getUser(userId: ID!): User!
         findUserMovies(movieId: ID!): Movie!
     }

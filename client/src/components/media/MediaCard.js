@@ -14,7 +14,7 @@ const style = {
     }
 }
 
-const MediaCard = ({ movies }) =>
+const MediaCard = ({ movies, updateUser }) =>
     <Card.Group divided verticalAlign='middle' size='huge' itemsPerRow='2'>
         {
             movies.map(movie => (
@@ -37,7 +37,7 @@ const MediaCard = ({ movies }) =>
                                     <p class="card-text" style={style.overview}>{movie.overview.slice(0, 300)}{(movie.overview.length) > 300 ? '...' : ''}</p>
                                     <p class="card-text"><small class="text-muted" style={style.subHead}><Icon name='calendar alternate outline' /> {movie.release_date}</small></p>
                                     <Divider />
-                                    <AddMovieIcon movie={movie} />
+                                    <AddMovieIcon updateUser={updateUser} movie={movie} />
                                     {/**<ViewMovieIcon movie={movie} /> */}
                                     <Rating maxRating={5} defaultRating={Math.round(movie.vote_average / 2)} disabled icon='star' size='mini' />
                                 </div>

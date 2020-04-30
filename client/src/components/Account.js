@@ -5,7 +5,7 @@ import { Icon, Header, Divider } from 'semantic-ui-react'
 import AccountLoadingPage from './account/Loading';
 import UpdateAccount from './account/UpdateAccount';
 
-const Account = () => {
+const Account = (props) => {
 
     const [state] = useState({
         isLoading: false,
@@ -15,7 +15,6 @@ const Account = () => {
     })
 
     if (state.isLoading) return <AccountLoadingPage />
-
     return (
         <Fragment>
             <Header as='h2' icon textAlign='center'>
@@ -26,7 +25,7 @@ const Account = () => {
                 </Header.Subheader>
             </Header>
             <Divider />
-            <UpdateAccount/>
+            <UpdateAccount {...props}/>
         </Fragment>
     )
 }

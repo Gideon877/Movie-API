@@ -21,20 +21,19 @@ const App = () => {
 	const [state, setState] = useState({
 		userId: null,
 		token: null,
-		movies: [],
 		signedUp: false
 	});
 
 	const login = (userId, token, tokenExpiration) => {
 		setState({ token, userId });
-
+		localStorage.clear();
+		localStorage.setItem('token', token);
 	}
 
 	const logout = () => {
-		setState({ token: null, userId: null });
+		setState({ token: null, userId: null, currentUser: null });
 	}
 
-	console.log({ state });
 
 	return (
 		<Router>
@@ -54,7 +53,7 @@ const App = () => {
 							{!state.token && <Redirect from='/account' to='/login' exact />}
 							{!state.token && <Redirect from='/media' to='/login' exact />}
 							{state.signedUp && <Redirect from='/register' to='/login' exact />}
-							{state.signedUp && <Redirect from='/home' to='/about' exact />}
+							{/*state.token && <Redirect from='/home' to='/about' exact />*/}
 
 							{!state.token && <Route exact path='/' component={LandingPage} />}
 							{!state.token && <Route exact path='/login' component={Login} />}

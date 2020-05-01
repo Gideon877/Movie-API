@@ -7,6 +7,8 @@ import Footer from './layout/Footer';
 import { gql } from 'apollo-boost';
 import { AuthContext } from 'context/auth-context';
 import { useQuery } from 'react-apollo';
+import LoadingScreen from './LoadingScreen';
+const _ = require('lodash');
 
 const GET_USER = gql`
     query getUser ($userId: ID!) {
@@ -35,11 +37,17 @@ const GET_USER = gql`
 const ProtectedRoute = ({ component: Component, ...rest }) => {
     const auth = useContext(AuthContext);
 
-    const { loading, data, error, refetch } = useQuery(GET_USER, {
+    const { loading, data, refetch } = useQuery(GET_USER, {
         variables: { userId: auth.userId }
     });
 
-    if (loading) return 'Loading ...';
+    if (loading) return <LoadingScreen />
+    // alert(JSON.stringify(data))
+    if (_.isEmpty(data) ||
+        _.isEmpty(data.getUser)) {
+        auth.logout();
+        return '';
+    }
 
     const currentUser = data.getUser;
 
@@ -47,16 +55,14 @@ const ProtectedRoute = ({ component: Component, ...rest }) => {
         render={props =>
             <Container>
                 <Navigation currentUser={currentUser} {...props} />
-                <Segment raised color='red' >
-                    <Component updateUser={refetch} currentUser={currentUser} {...props} />
-                    <Divider section clearing />
-                    <Footer />
-                </Segment>
+                <Component updateUser={refetch} currentUser={currentUser} {...props} />
+                <Divider section clearing />
+                <Footer />
+               
             </Container>
         }
     />
 }
-
 
 ProtectedRoute.propTypes = {
     Component: PropTypes.any

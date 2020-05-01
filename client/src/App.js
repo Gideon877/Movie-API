@@ -14,6 +14,7 @@ import { AuthContext } from './context/auth-context';
 import Media from 'components/Media';
 import Account from 'components/Account';
 import { ToastProvider } from 'react-toast-notifications';
+import UnAuthorizedRoute from 'components/UnAuthorizedRoute';
 const _ = require('lodash');
 
 
@@ -56,8 +57,8 @@ const App = () => {
 							{/*state.token && <Redirect from='/home' to='/about' exact />*/}
 
 							{!state.token && <Route exact path='/' component={LandingPage} />}
-							{!state.token && <Route exact path='/login' component={Login} />}
-							{!state.token && <Route exact path='/register' component={Registration} />}
+							{!state.token && <UnAuthorizedRoute exact path='/login' component={Login} />}
+							{!state.token && <UnAuthorizedRoute exact path='/register' component={Registration} />}
 
 							{state.token && <ProtectedRoute exact path='/about' component={About} />}
 							{state.token && <ProtectedRoute exact path='/home' component={MainLayout} />}

@@ -59,7 +59,7 @@ const UpdateAccount = ({ userId, user }) => {
             })}
 
             onSubmit={fields => {
-                //todo: add onSubmit loading
+                //Todo: add onSubmit loading
                 updateUser({ variables: { user: { ...fields } } })
                     .then((result) => {
                         const isUpdated = result.data.updateUser;

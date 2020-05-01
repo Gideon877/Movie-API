@@ -15,7 +15,7 @@ const style = {
 }
 
 const MediaCard = ({ movies, updateUser }) =>
-    <Card.Group divided verticalAlign='middle' size='huge' itemsPerRow='2'>
+    <Card.Group divided verticalAlign='middle' size='huge' stackable>
         {
             movies.map(movie => (
                 (movie.poster_path && movie.backdrop_path) ?

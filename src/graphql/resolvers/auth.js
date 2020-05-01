@@ -8,7 +8,7 @@ const { user } = require('./merge');
 module.exports = {
     Query: {
         users: async (parent, params, context) => {
-            if(context.code === 404) throw new Error(context.message);
+            if (context.code === 404) throw new Error(context.message);
             try {
                 const users = await User.find().populate('createdMovies')
                 return users.map(user => {
@@ -22,8 +22,8 @@ module.exports = {
 
         },
 
-        getUser: async (parent, params, context) => 
-            (context.code === 404) 
+        getUser: async (parent, params, context) =>
+            (context.code === 404)
                 ? new Error(context.message)
                 : await user(params.userId)
 
@@ -56,10 +56,10 @@ module.exports = {
         },
 
         updateUser: async (parent, params, context) => {
-            if(context.code === 404) throw new Error(context.message);
-            /* todo: - check user type ? admin vs user */
+            if (context.code === 404) throw new Error(context.message);
+            /* Todo: - check user type ? admin vs user */
             try {
-                // todo: use auth token to get userId
+                // Todo: use auth token to get userId
                 await User.findOneAndUpdate({ username: params.user.username }, params.user);
                 return true;
             } catch (error) {

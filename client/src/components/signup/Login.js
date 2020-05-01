@@ -1,10 +1,10 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Formik, Field, Form, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import { AuthContext } from '../../context/auth-context';
 import { NavLink } from 'react-router-dom';
-import { Icon, Message } from 'semantic-ui-react'
+import { Icon, Message, Header, Divider, Button } from 'semantic-ui-react'
 import { gql } from 'apollo-boost';
 import { useMutation } from 'react-apollo';
 import { useToasts } from 'react-toast-notifications';
@@ -25,7 +25,7 @@ const Login = () => {
     const auth = useContext(AuthContext);
     const [signIn] = useMutation(SIGN_IN);
     const { addToast } = useToasts();
-
+    const [isLoading, setLoading] = useState(false);
     return <Formik
         initialValues={{
             username: 'vtrev', password: 'password'
@@ -37,6 +37,7 @@ const Login = () => {
         })}
 
         onSubmit={(fields, { setErrors }) => {
+            setLoading(true);
             const variables = {
                 ...fields
             }
@@ -44,23 +45,28 @@ const Login = () => {
             signIn({ variables })
                 .then((res) => {
                     const { token, userId, tokenExpiration } = res.data.signIn;
-                    addToast('Signed in.', { appearance: 'success', autoDismiss: true})
                     auth.login(userId, token, tokenExpiration);
+                    setLoading(false);
+                    addToast('Signed in.', { appearance: 'success', autoDismiss: true})
                 })
                 .catch(err => {
                     addToast(_.get(err, ["message"]), { appearance: 'error', autoDismiss: true})
                     setErrors({ api: _.get(err, ["message"]) });
+                    setInterval(()=> {
+                    setLoading(false)
+
+                    }, 2000)
                 })
 
         }}
     >
         {({ errors, status, touched }) => (
             <><br className="my-4" />
-                <div className='jumbotron'>
-                    <h5 className="display-5" align='center'>Movie App</h5>
-                    <hr className="my-4" />
-                    <p className="lead" align='center'>Login</p>
-                </div>
+                <Header as='h2' icon textAlign='center'>
+                        <Icon name='user secret' circular /> Login
+                        <Header.Subheader> Enter your username and password to login.</Header.Subheader>
+                </Header>
+                <Divider />
                 <div className='row'>
                     <div className='col-sm-3'></div>
                     <div className='col-sm-6'>
@@ -76,8 +82,8 @@ const Login = () => {
                                 <ErrorMessage name='password' component='div' className='invalid-feedback' />
                             </div>
                             <div className='form-group'>
-                                <button type='submit' className='btn btn-primary mr-2'>Login</button>
-                                <button type='reset' className='btn btn-secondary'>Reset</button>
+                                <Button type='submit' disabled={isLoading} loading={isLoading} basic color='black'>Login</Button>
+                                <Button type='reset' disabled={isLoading} basic color='red' >Reset</Button>
                             </div>
                             {errors.api ?
                                 <Message attached='bottom' warning>

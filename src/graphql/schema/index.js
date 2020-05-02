@@ -63,6 +63,12 @@ module.exports = gql`
         tokenExpiration: Int!
     }
 
+    type RegisteredUser {
+        _id: ID!
+        username: String!
+        # password: String
+    }
+
     type Query {
         movies: [Movie!]!
         playlists: [Playlist!]!
@@ -80,8 +86,15 @@ module.exports = gql`
         updateUser(user: UserInput): Boolean
         removeMovie(movieId: ID!, userId: ID!): Boolean
     }
+
+    type Subscription {
+        onLogin: User
+        # onRegister: RegisteredUser
+    }
+
     schema {
         query: Query,
-        mutation: Mutation
+        mutation: Mutation,
+        subscription: Subscription
     }
 `

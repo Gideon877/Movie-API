@@ -1,4 +1,19 @@
 {
+    "extends": [
+        "standard",
+        "plugin:@typescript-eslint/recommended",
+        "plugin:flowtype/recommended",
+        "prettier",
+        "prettier/@typescript-eslint",
+        "prettier/babel",
+        "prettier/flowtype",
+        "prettier/react"
+    ],
+    "plugins": [
+        "@typescript-eslint",
+        "babel",
+        "plugin:flowtype/recommended"
+    ],
     "parserOptions": {
         "ecmaVersion": 6,
         "sourceType": "module",
@@ -7,6 +22,17 @@
         }
     },
     "rules": {
-        "semi": "error"
+        "semi": "error",
+        "no-unexpected-multiline": "error",
+        "no-tabs": [
+            "error",
+            {
+                "allowIndentationTabs": true
+            }
+        ]
+    },
+    "env": {
+        "es6": true,
+        "node": true
     }
 }

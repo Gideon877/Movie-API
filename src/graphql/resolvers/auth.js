@@ -1,7 +1,7 @@
 const User = require('../../models/user');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const { userType } = require('../helpers/constants');
+const { userType, EventTypes } = require('../helpers/constants');
 const { user } = require('./merge');
 
 
@@ -68,25 +68,35 @@ module.exports = {
             }
         },
 
-        signIn: async (parent, params) => {
-            const { username, password } = params;
-            const user = await User.findOne({ username });
-            if (!user) {
-                throw new Error('User does not exist!');
-            }
+        signIn: async (parent, params, { pubsub }) => {
+            try {
+                console.log('----- singining in --')
+                const { username, password } = params;
+                const user = await User.findOne({ username });
+                if (!user) {
+                    throw new Error('User does not exist!');
+                }
 
-            const isEqual = await bcrypt.compare(password, user.password);
+                const isEqual = await bcrypt.compare(password, user.password);
 
-            if (!isEqual) {
-                throw new Error('Password is incorrect!');
-            }
+                if (!isEqual) {
+                    throw new Error('Password is incorrect!');
+                }
 
-            const token = jwt.sign({ userId: user.id, username: user.username }, "somesupersecretkey", { expiresIn: '1h' });
+                const token = jwt.sign({ userId: user.id, username: user.username }, "somesupersecretkey", { expiresIn: '1h' });
+                console.log('After token')
+                pubsub.publish(EventTypes.LoggedUser, {
+                    onLogin: user
+                });
 
-            return {
-                userId: user.id,
-                token,
-                tokenExpiration: 1
+                return {
+                    userId: user.id,
+                    token,
+                    tokenExpiration: 1
+                }
+            } catch (error) {
+                console.log(error);
+
             }
         }
 

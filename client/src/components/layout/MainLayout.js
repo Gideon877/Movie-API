@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Input, Divider, Icon, Responsive, Header } from 'semantic-ui-react';
 import Axios from 'axios';
 import { gql } from 'apollo-boost';
-import { useQuery } from '@apollo/react-hooks';
+import { useQuery, useSubscription } from '@apollo/react-hooks';
 import { useToasts } from 'react-toast-notifications';
 
 import { AuthContext } from 'context/auth-context';
@@ -16,6 +16,17 @@ const GET_USER = gql`
         getUser (userId: $userId) {
             firstName
             lastName
+        }
+    }
+`
+
+const ON_LOGIN = gql`
+    subscription onLogIn {
+        onLogin {
+            firstName
+            lastName
+            _id
+            username
         }
     }
 `
@@ -38,14 +49,20 @@ const MainLayout = (props) => {
         }
     });
 
-    const { loading, data } = useQuery(GET_USER, {
-        variables: {
-            userId: auth.userId
-        }
-    })
+    // const { loading, data } = useQuery(GET_USER, {
+    //     variables: {
+    //         userId: auth.userId
+    //     }
+    // })
+
+    const { loading, data } = useSubscription(ON_LOGIN);
+
+console.log(data);
 
     if (loading) return <h4 align='center'>...Loading</h4>
-    if (!data || !data.getUser) {
+
+    return <p>No data</p>
+    if (!data || !data.onLogin) {
         auth.logout();
         return;
     }

@@ -1,4 +1,7 @@
 const jwt = require('jsonwebtoken');
+const { ApolloServer, gql, PubSub } = require("apollo-server");
+const pubsub = new PubSub();
+
 
 class AuthorizationError extends Error {
     constructor(message) {
@@ -13,12 +16,13 @@ class Authenticated {
         this.message = message;
         this.isAuth = (this.user) ? true : false;
         this.code = (this.isAuth) ? 200 : 404;
+        this.pubsub = pubsub;
     }
 }
 
 module.exports = ({ req, res }) => {
-    const authHeader = req.get('Authorization') //|| process.env.DEV_TOKEN;
     try {
+        const authHeader = req.get('Authorization') //|| process.env.DEV_TOKEN;
         if (!authHeader) {
             throw new AuthorizationError('Authorization header not privided');
         }
@@ -35,7 +39,6 @@ module.exports = ({ req, res }) => {
         }
         
         return new Authenticated(decodedToken, 'Authorization success')
-        
     } catch (error) {
         return new Authenticated(null, error.message);
     }

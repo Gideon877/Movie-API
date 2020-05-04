@@ -15,6 +15,7 @@
     "apollo-cache-inmemory": "^1.6.5",
     "apollo-link-context": "^1.0.20",
     "apollo-link-http": "^1.5.17",
+    "apollo-link-ws": "^1.0.20",
     "axios": "^0.19.2",
     "babel-eslint": "^9.0.0",
     "babel-jest": "^24.9.0",
@@ -74,6 +75,7 @@
     "semantic-ui-react": "^0.88.2",
     "semver": "6.3.0",
     "style-loader": "0.23.1",
+    "subscriptions-transport-ws": "^0.9.16",
     "terser-webpack-plugin": "2.3.5",
     "ts-pnp": "1.1.6",
     "url-loader": "2.3.0",
@@ -90,7 +92,10 @@
     "test": "node scripts/test.js"
   },
   "eslintConfig": {
-    "extends": ["wesbos", "prettier"]
+    "extends": [
+      "wesbos",
+      "prettier"
+    ]
   },
   "browserslist": {
     "production": [

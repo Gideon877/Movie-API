@@ -16,7 +16,7 @@ import Login from './components/signup/Login';
 import Registration from './components/signup/Registration';
 import LandingPage from './components/LandingPage';
 import MainLayout from './components/layout/MainLayout';
-import ProtectedRoute from './components/ProtectedRoute';
+import Home from './components/Home'
 import About from './components/About';
 
 import { AuthContext } from './context/auth-context';
@@ -122,7 +122,7 @@ const App = () => {
 								)}
 
 								{state.token && (
-									<ProtectedRoute
+									<MainLayout
 										exact
 										path="/about"
 										component={
@@ -131,16 +131,16 @@ const App = () => {
 									/>
 								)}
 								{state.token && (
-									<ProtectedRoute
+									<MainLayout
 										exact
 										path="/home"
 										component={
-											MainLayout
+											Home
 										}
 									/>
 								)}
 								{state.token && (
-									<ProtectedRoute
+									<MainLayout
 										exact
 										path="/media"
 										component={
@@ -149,7 +149,7 @@ const App = () => {
 									/>
 								)}
 								{state.token && (
-									<ProtectedRoute
+									<MainLayout
 										exact
 										path="/account"
 										component={

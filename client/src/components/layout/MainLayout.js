@@ -1,100 +1,85 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useContext, useState } from 'react';
 import PropTypes from 'prop-types';
-import { Input, Divider, Icon, Responsive, Header } from 'semantic-ui-react';
-import Axios from 'axios';
+import { Route } from 'react-router-dom';
+import { Container, Divider, Sidebar, Menu } from 'semantic-ui-react';
 import { gql } from 'apollo-boost';
-import { useQuery } from '@apollo/react-hooks';
-import { useToasts } from 'react-toast-notifications';
-
 import { AuthContext } from 'context/auth-context';
-import MediaCard from '../media/MediaCard';
-
+import { useQuery } from 'react-apollo';
 const _ = require('lodash');
+
+import Footer from '../layout/Footer';
+import Navigation from '../layout/Navigation';
+import LoadingScreen from '../LoadingScreen';
 
 const GET_USER = gql`
     query getUser ($userId: ID!) {
         getUser (userId: $userId) {
             firstName
             lastName
+            username
+            email
+            createdMovies {
+                _id
+                adult
+                backdropPath
+                originalLanguage
+                overview
+                popularity
+                posterPath
+                releaseDate
+                title
+                voteAverage
+            }
+    
         }
     }
 `
 
-
-const MainLayout = (props) => {
+const MainLayout = ({ component: Component, ...rest }) => {
     const auth = useContext(AuthContext);
-    const [searched, setResult] = useState([])
-    const [popular, setPopular] = useState([]);
-    const [isLoading, setLoading] = useState(false)
-    const { addToast } = useToasts();
-
-    useEffect(() => {
-        const getData = async () =>
-            process.env.REACT_APP_API_HOME_URL && await Axios.get(`${process.env.REACT_APP_API_HOME_URL}`)
-                .then(response =>
-                    setPopular(response.data.results ? response.data.results : []))
-                .catch((err) => addToast(err, { appearance: 'error', autoDismiss: true }));
-        if (_.isEmpty(popular)) {
-            getData();
-        }
+    const [visible, setVisible] = useState(true)
+    const { loading, data, refetch } = useQuery(GET_USER, {
+        variables: { userId: auth.userId }
     });
 
-    const { loading, data } = useQuery(GET_USER, {
-        variables: {
-            userId: auth.userId
+    if (loading) return <LoadingScreen />
+    // alert(JSON.stringify(data))
+    if (_.isEmpty(data) ||
+        _.isEmpty(data.getUser)) {
+        auth.logout();
+        return '';
+    }
+
+    const currentUser = data.getUser;
+
+    return <Route {...rest}
+        render={props =>
+            <Container>
+                <Sidebar
+                    as={Menu}
+                    animation='overlay'
+                    direction='left'
+                    icon='labeled'
+                    inverted
+                    onHide={() => setVisible(false)}
+                    vertical
+                    visible={visible}
+                    width='thin'
+                ><Navigation currentUser={currentUser} {...props} />
+                </Sidebar>
+                <Sidebar.Pusher>
+                    <Component updateUser={refetch} currentUser={currentUser} {...props} visible={visible} setVisible={setVisible} />
+                    <Divider section clearing />
+                    <Footer />
+                </Sidebar.Pusher>
+
+            </Container>
         }
-    })
-
-
-
-    if (loading) return <h4 align='center'>...Loading</h4>
-
-
-    const { firstName, lastName } = data.getUser;
-
-    return (
-        <Responsive>
-            <Header as='h2' icon textAlign='center'>
-                <Icon name='search ' circular link onClick={() => props.setVisible(!props.visible)} />
-                Search and Like
-                <Header.Subheader>
-                    {firstName} {lastName}
-                </Header.Subheader>
-            </Header>
-            <Divider horizontal>
-                <Header as='h4'>
-                    <Icon color='green' name='user' />
-                </Header>
-            </Divider>
-            <br />
-            <Input iconPosition='right'
-                loading={isLoading}
-                fluid size='large'
-                icon='search'
-                placeholder='Search...'
-                onChange={(e) => {
-                    e.preventDefault();
-                    if (e.target.value.trim().length !== 0) setLoading(true);
-                    Axios.get(`${process.env.REACT_APP_API_URL}${e.target.value}`)
-                        .then(response => setResult([...response.data.results]))
-                        .then(() => setLoading(false))
-                        .catch(() => setResult([]))
-                }}
-            />
-            <br />
-            {(searched.length > 0) && <MediaCard {...props} movies={searched} />}
-            {popular.length > 0 && <MediaCard {...props} movies={popular} />}
-        </Responsive>
-    )
+    />
 }
 
 MainLayout.propTypes = {
-    /**
-     * @param { Object } user
-     * @param { String } user.firstName
-     * @param { String } user.lastName
-     */
-    user: PropTypes.object
+    Component: PropTypes.any
 }
 
 export default MainLayout;

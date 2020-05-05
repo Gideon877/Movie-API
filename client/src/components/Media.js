@@ -1,11 +1,10 @@
 import React, { Fragment, useContext, useState } from 'react';
 import PropTypes from 'prop-types'
-import { Header, Icon, Divider, Segment, Dimmer, Loader, Image, Button, List, Menu } from 'semantic-ui-react';
+import { Header, Icon, Divider, Segment, Dimmer, Loader, Image, Menu } from 'semantic-ui-react';
 import { AuthContext } from 'context/auth-context';
 import { useQuery } from '@apollo/react-hooks';
 import { gql } from 'apollo-boost';
 import UserMediaCard from './media/UserMediaCard';
-import { generatePath } from 'react-router-dom';
 
 const GET_USER = gql`
     query getUser ($userId: ID!) {
@@ -62,7 +61,7 @@ const Media = (props) => {
 
     return <Fragment>
         <Header as='h2' icon textAlign='center'>
-            <Icon name='film ' circular /> Media
+            <Icon name='film ' circular link onClick={() => props.setVisible(!props.visible)} /> Media
             <Header.Subheader>Manage your playlists (create and update)</Header.Subheader>
         </Header>
         <Divider horizontal>
@@ -121,19 +120,3 @@ Media.propTypes = {
 }
 
 export default Media;
-    // const movieList = movies.map(movie => (
-    //     (movie.posterPath) ?
-    //         <List.Item>
-    //             <List.Content floated='right'>
-    //                 <Button.Group>
-    //                     <Button color='teal'>More</Button>
-    //                     <Button.Or icon='setting' />
-    //                     <Button color='yellow' >Like</Button>
-    //                 </Button.Group>
-    //             </List.Content>
-    //             <Image avatar src={'https://image.tmdb.org/t/p/w500' + movie.posterPath} />
-    //             <List.Content>{movie.title}</List.Content></List.Item>
-
-    //         : ''
-
-    // ))

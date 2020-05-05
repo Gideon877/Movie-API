@@ -6,7 +6,7 @@ const About = (props) => {
     return (
         <Fragment>
             <Header as='h2' icon textAlign='center'>
-                <Icon name='user ' circular />
+                <Icon name='user ' circular link onClick={() => props.setVisible(!props.visible)} />
                 Movie Title
                 <Header.Subheader>
                     Manage your About settings and set e-mail preferences.

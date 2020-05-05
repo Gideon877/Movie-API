@@ -1,8 +1,8 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Route } from 'react-router-dom';
 import Navigation from './layout/Navigation';
-import { Container, Divider, Segment } from 'semantic-ui-react';
+import { Container, Divider, Sidebar, Menu } from 'semantic-ui-react';
 import Footer from './layout/Footer';
 import { gql } from 'apollo-boost';
 import { AuthContext } from 'context/auth-context';
@@ -36,7 +36,7 @@ const GET_USER = gql`
 
 const ProtectedRoute = ({ component: Component, ...rest }) => {
     const auth = useContext(AuthContext);
-
+    const [visible, setVisible] = useState(true)
     const { loading, data, refetch } = useQuery(GET_USER, {
         variables: { userId: auth.userId }
     });
@@ -54,11 +54,24 @@ const ProtectedRoute = ({ component: Component, ...rest }) => {
     return <Route {...rest}
         render={props =>
             <Container>
-                <Navigation currentUser={currentUser} {...props} />
-                <Component updateUser={refetch} currentUser={currentUser} {...props} />
-                <Divider section clearing />
-                <Footer />
-               
+                <Sidebar
+                    as={Menu}
+                    animation='overlay'
+                    direction='left'
+                    icon='labeled'
+                    inverted
+                    onHide={() => setVisible(false)}
+                    vertical
+                    visible={visible}
+                    width='thin'
+                ><Navigation currentUser={currentUser} {...props} />
+                </Sidebar>
+                <Sidebar.Pusher>
+                    <Component updateUser={refetch} currentUser={currentUser} {...props} visible={visible} setVisible={setVisible} />
+                    <Divider section clearing />
+                    <Footer />
+                </Sidebar.Pusher>
+
             </Container>
         }
     />

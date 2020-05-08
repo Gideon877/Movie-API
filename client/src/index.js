@@ -57,5 +57,11 @@ const client = new ApolloClient({
     cache: new InMemoryCache()
 });
 
-ReactDOM.render(<ApolloProvider client={client}><App /></ApolloProvider>, document.querySelector('.container'));
+ReactDOM.render(
+    <ApolloProvider
+        client={client}
+    ><App />
+    </ApolloProvider>,
+    document.querySelector('.container')
+);
 serviceWorker.unregister();

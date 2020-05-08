@@ -49,7 +49,6 @@ const Home = (props) => {
 
     if (loading) return <h4 align='center'>...Loading</h4>
 
-
     const { firstName, lastName } = data.getUser;
 
     return (
@@ -82,8 +81,7 @@ const Home = (props) => {
                 }}
             />
             <br />
-            {(searched.length > 0) && <MediaCard {...props} movies={searched} />}
-            {popular.length > 0 && <MediaCard {...props} movies={popular} />}
+            <MediaCard {...props} movies={(searched.length > 0) ? searched : popular} />
         </Responsive>
     )
 }

@@ -65,6 +65,7 @@
     "react-dev-utils": "^10.2.1",
     "react-dom": "^16.13.1",
     "react-event-timeline": "^1.6.3",
+    "react-helmet": "^6.0.0",
     "react-router-dom": "^5.1.2",
     "react-timeline-scribble": "^1.0.14",
     "react-toast-notifications": "^2.4.0",

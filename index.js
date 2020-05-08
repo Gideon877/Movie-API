@@ -1,10 +1,8 @@
 const mongoose = require('mongoose');
 const graphqlSchema = require('./src/graphql/schema');
 const graphqlResolvers = require('./src/graphql/resolvers');
-const { ApolloServer, PubSub } = require('apollo-server');
+const { ApolloServer } = require('apollo-server');
 const isAuth = require('./src/middleware/is-auth')
-
-const pubsub = new PubSub();
 
 const app = new ApolloServer({
 	typeDefs: graphqlSchema,

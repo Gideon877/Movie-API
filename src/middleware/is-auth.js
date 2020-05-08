@@ -22,7 +22,7 @@ class Authenticated {
 
 module.exports = ({ req, res }) => {
     try {
-        const authHeader = req.get('Authorization') //|| process.env.DEV_TOKEN;
+        const authHeader = req.get('Authorization') || process.env.DEV_TOKEN;
         if (!authHeader) {
             throw new AuthorizationError('Authorization header not privided');
         }

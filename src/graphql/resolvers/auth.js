@@ -70,7 +70,6 @@ module.exports = {
 
         signIn: async (parent, params, { pubsub }) => {
             try {
-                console.log('----- singining in --')
                 const { username, password } = params;
                 const user = await User.findOne({ username });
                 if (!user) {
@@ -84,7 +83,6 @@ module.exports = {
                 }
 
                 const token = jwt.sign({ userId: user.id, username: user.username }, "somesupersecretkey", { expiresIn: '1h' });
-                console.log('After token')
                 pubsub.publish(EventTypes.LoggedUser, {
                     onLogin: user
                 });
@@ -95,7 +93,7 @@ module.exports = {
                     tokenExpiration: 1
                 }
             } catch (error) {
-                console.log(error);
+                throw error;
 
             }
         }

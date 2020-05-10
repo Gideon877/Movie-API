@@ -61,7 +61,7 @@ const Media = (props) => {
 
     return <Fragment>
         <Header as='h2' icon textAlign='center'>
-            <Icon name='film ' circular link onClick={() => props.setVisible(!props.visible)} /> Media
+            <Icon name='film' circular link onClick={() => props.setVisible(!props.visible)} /> Media
             <Header.Subheader>Manage your playlists (create and update)</Header.Subheader>
         </Header>
         <Divider horizontal>

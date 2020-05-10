@@ -39,7 +39,8 @@ const Navigation = (props) => {
                         onClick={handleItemClick}
                     ><Icon name='film' /> Media
                     <Label color='teal' size='small' circular floating>{mediaCount}</Label>
-                        {/**<Label color='teal' size='mini' corner='right' floating>3</Label> */}
+   
+                    <Label color='teal' size='small' circular floating>0</Label>
                     </Menu.Item>
                 </NavLink>
 
@@ -55,7 +56,7 @@ const Navigation = (props) => {
                     <Menu.Item
                         name='sign-out'
                         onClick={context.logout}
-                    ><Icon name='sign-out' /> Logout
+                    ><Icon name='power off' /> Logout
                     </Menu.Item>
                 </Menu.Menu>
             </>

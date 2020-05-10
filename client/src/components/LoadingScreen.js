@@ -10,8 +10,8 @@ const LoadingScreen = () => {
         <Container>
             <NavigationOnLoad />
             <Segment raised color='red' >
-                <Header as='h2' icon textAlign='center'>
-                    <Icon name='search ' circular />
+                <Header as='h2' icon textalign='center'>
+                    <Icon name='search' circular />
             Search and Like
             <Header.Subheader>
                         Guest

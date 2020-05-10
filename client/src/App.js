@@ -94,7 +94,7 @@ const App = () => {
 								{/* state.token && <Redirect from='/home' to='/about' exact /> */}
 
 								{!state.token && (
-									<Route
+									<UnAuthorizedRoute
 										exact
 										path="/"
 										component={

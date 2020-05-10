@@ -1,9 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types'
 import { LoggedUser } from 'context/auth-context';
 import UnAuthorizedNavigation from './layout/UnAuthorizedNavigation';
-
+import { Responsive, Header, Icon, Divider } from 'semantic-ui-react';
+import Axios from 'axios';
 const _ = require('lodash');
+
+import SearchInput from './media/SearchInput';
+import MediaCard from './media/MediaCard';
 
 const LandingPage = (props) => {
     /* Todo: add guest ux 
@@ -11,12 +15,36 @@ const LandingPage = (props) => {
     * current users count
     * example of adding movies
     * */
-    return <div>
-        <UnAuthorizedNavigation />
-        <h3>Landing Page</h3>
-        <button className='btn btn-primary' onClick={() => props.history.push('/login')} >Login</button>
-        <p>{'Logged in : ' + _.isString(LoggedUser.token)}</p>
-    </div>
+    const [searched, setResult] = useState([]);
+    const [isLoading, setLoading] = useState(false)
+
+    return <Responsive>
+        <Header as='h2' icon textAlign='center'>
+            <Icon name='search' circular /> Search latest movies
+            <Header.Subheader>
+                Guest
+            </Header.Subheader>
+        </Header>
+        <Divider horizontal>
+            <Header as='h4'>
+                <Icon name='user secret' />
+            </Header>
+        </Divider>
+        <br />
+        <SearchInput loading={isLoading}
+            onType={(e) => {
+                e.preventDefault();
+                if (e.target.value.trim().length !== 0) setLoading(true);
+                Axios.get(`${process.env.REACT_APP_API_URL}${e.target.value}`)
+                    .then(response => setResult([...response.data.results]))
+                    .then(() => setLoading(false))
+                    .catch(() => setResult([]))
+            }} 
+        />
+        <br/>
+
+        <MediaCard {...props} movies={searched} />
+    </Responsive>
 }
 
 LandingPage.propTypes = {

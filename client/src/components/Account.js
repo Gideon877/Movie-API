@@ -18,7 +18,7 @@ const Account = (props) => {
     return (
         <Fragment>
             <Header as='h2' icon textAlign='center'>
-                <Icon name='user ' circular link onClick={() => props.setVisible(!props.visible)} />
+                <Icon name='user' circular link onClick={() => props.setVisible(!props.visible)} />
                 Account Settings
                 <Header.Subheader>
                             Manage your account settings and set e-mail preferences.

@@ -8,6 +8,7 @@ import { useToasts } from 'react-toast-notifications';
 
 import { AuthContext } from 'context/auth-context';
 import MediaCard from './media/MediaCard';
+import SearchInput from './media/SearchInput';
 
 const _ = require('lodash');
 
@@ -54,7 +55,7 @@ const Home = (props) => {
     return (
         <Responsive>
             <Header as='h2' icon textAlign='center'>
-                <Icon name='search ' circular link onClick={() => props.setVisible(!props.visible)} />
+                <Icon name='search' circular link onClick={() => props.setVisible(!props.visible)} />
                 Search and Like
                 <Header.Subheader>
                     {firstName} {lastName}
@@ -66,12 +67,8 @@ const Home = (props) => {
                 </Header>
             </Divider>
             <br />
-            <Input iconPosition='right'
-                loading={isLoading}
-                fluid size='large'
-                icon='search'
-                placeholder='Search...'
-                onChange={(e) => {
+            <SearchInput loading={isLoading}
+                onType={(e) => {
                     e.preventDefault();
                     if (e.target.value.trim().length !== 0) setLoading(true);
                     Axios.get(`${process.env.REACT_APP_API_URL}${e.target.value}`)

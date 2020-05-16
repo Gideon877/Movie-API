@@ -24,7 +24,7 @@ const AddMovieIcon = ({ movie, updateUser}) => {
         // updateData(movies.filter(item => item.title !== movies.title))
     }
 
-    return <Icon basic
+    return <Icon
         color='orange'
         link size='large'
         name='add circle'
@@ -54,10 +54,10 @@ const AddMovieIcon = ({ movie, updateUser}) => {
 }
 
 AddMovieIcon.propTypes = {
-    image: PropTypes.string.isRequired,
-    header: PropTypes.string.isRequired,
-    meta: PropTypes.string.isRequired,
-    description: PropTypes.string.isRequired,
+    // image: PropTypes.string.isRequired,
+    // header: PropTypes.string.isRequired,
+    // meta: PropTypes.string.isRequired,
+    // description: PropTypes.string.isRequired,
 }
 
 export default AddMovieIcon;

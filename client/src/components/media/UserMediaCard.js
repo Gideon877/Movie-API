@@ -29,11 +29,11 @@ const GET_USER = gql`
 `
 
 const style = {
-    subHead: { "font-family": ['Bebas Neue', 'cursive'] },
-    header: { "font-family": ['Comic Neue', 'cursive'] },
+    subHead: { "fontFamily": ['Bebas Neue', 'cursive'] },
+    header: { "fontFamily": ['Comic Neue', 'cursive'] },
     overview: {
-        "font-size": 'x-small',
-        "font-family": ['Quattrocento', 'serif'],
+        "fontSize": 'x-small',
+        "fontFamily": ['Quattrocento', 'serif'],
 
     }
 }
@@ -57,9 +57,9 @@ const UserMediaCard = ({ updateUser }) => {
         {
             movies.map(movie => (
                 (movie.posterPath && movie.backdropPath) ?
-                    <div class="ui olive card mb-3" color='olive' >
-                        <div class="row no-gutters">
-                            <div class="col-md-4">
+                    <div className="ui olive card mb-3" color='olive' >
+                        <div className="row no-gutters">
+                            <div className="col-md-4">
                                 <Reveal animated='move right'>
                                     <Reveal.Content visible>
                                         <Image src={'https://image.tmdb.org/t/p/w500' + movie.posterPath} size='small' />
@@ -69,11 +69,11 @@ const UserMediaCard = ({ updateUser }) => {
                                     </Reveal.Content>
                                 </Reveal>
                             </div>
-                            <div class="col-md-8">
-                                <div class="card-body">
-                                    <h5 class="card-title" style={style.header}>{movie.title}</h5>
-                                    <p class="card-text" style={style.overview}>{movie.overview.slice(0, 300)}{(movie.overview.length) > 300 ? '...' : ''}</p>
-                                    <p class="card-text"><small class="text-muted" style={style.subHead}><Icon name='calendar alternate outline' /> {movie.releaseDate}</small></p>
+                            <div className="col-md-8">
+                                <div className="card-body">
+                                    <h5 className="card-title" style={style.header}>{movie.title}</h5>
+                                    <p className="card-text" style={style.overview}>{movie.overview.slice(0, 300)}{(movie.overview.length) > 300 ? '...' : ''}</p>
+                                    <p className="card-text"><small className="text-muted" style={style.subHead}><Icon name='calendar alternate outline' /> {movie.releaseDate}</small></p>
                                     <Divider />
                                     <RemoveMovieIcon onSubmit={() => {
                                         updateUser();

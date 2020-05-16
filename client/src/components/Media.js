@@ -21,11 +21,11 @@ const GET_USER = gql`
 `
 
 const style = {
-    subHead: { "font-family": ['Bebas Neue', 'cursive'] },
-    header: { "font-family": ['Comic Neue', 'cursive'] },
+    subHead: { "fontFamily": ['Bebas Neue', 'cursive'] },
+    header: { "fontFamily": ['Comic Neue', 'cursive'] },
     overview: {
-        "font-size": 'x-small',
-        "font-family": ['Quattrocento', 'serif'],
+        "fontSize": 'x-small',
+        "fontFamily": ['Quattrocento', 'serif'],
 
     }
 }

@@ -20,7 +20,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
+  fontSize: calc(10px + 2vmin);
   color: white;
 }
 
@@ -32,6 +32,7 @@
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }
@@ -44,23 +45,23 @@
   left: unset!important;
 } */
 
-@media only screen and (min-width: 992px){
+@media only screen and (min-width: 992px) {
   .ui.tiny.modal {
-      position: fixed;
-      top: 20%;
+    position: fixed;
+    top: 20%;
   }
 }
 
-@media only screen and (min-width: 768px){
+@media only screen and (min-width: 768px) {
   .ui.tiny.modal {
-      position: fixed;
-      top: 20%;
+    position: fixed;
+    top: 20%;
   }
 }
 
-@media only screen and (max-width: 767px){
+@media only screen and (max-width: 767px) {
   .ui.tiny.modal {
-      position: fixed;
-      top: 5%;
+    position: fixed;
+    top: 5%;
   }
 }

@@ -1,8 +1,8 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { Route } from 'react-router-dom';
 import Navigation from './layout/Navigation';
-import { Container, Divider, Segment } from 'semantic-ui-react';
+import { Container, Divider, Segment, Grid, GridColumn } from 'semantic-ui-react';
 import Footer from './layout/Footer';
 import { gql } from 'apollo-boost';
 import { AuthContext } from 'context/auth-context';
@@ -14,14 +14,17 @@ import UnAuthorizedNavigation from './layout/UnAuthorizedNavigation';
 const UnAuthorizedRoute = ({ component: Component, ...rest }) => {
     return <Route {...rest}
         render={props =>
-            <Container>
-                <UnAuthorizedNavigation currentPath={rest.location.pathname} />
-                <Segment raised color='red' >
+            <Grid>
+                <GridColumn width={16}>
+                    <UnAuthorizedNavigation currentPath={rest.location.pathname} />
+                    <Divider hidden />
                     <Component {...props} />
-                    <Divider section clearing />
+                    <Divider section clearing hidden style={{
+                        height: '100px'
+                    }} />
                     <Footer />
-                </Segment>
-            </Container>
+                </GridColumn>
+            </Grid>
         }
     />
 }

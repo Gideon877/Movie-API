@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types'
 import { LoggedUser } from 'context/auth-context';
-import { Responsive, Header, Icon, Divider, GridColumn, Grid } from 'semantic-ui-react';
+import { Responsive, Header, Icon, Divider, GridColumn, Grid, List, Button, Image } from 'semantic-ui-react';
 import Axios from 'axios';
+import { Clock } from 'grommet';
 const _ = require('lodash');
 
 import SearchInput from './media/SearchInput';
@@ -28,7 +29,7 @@ const LandingPage = (props) => {
             <Header as='h2' icon textAlign='center'>
                 <Icon name='search' circular /> Search latest movies
             <Header.Subheader>
-                    Guest
+                    <Clock alignSelf='center' type="digital" />
             </Header.Subheader>
             </Header>
             <Divider horizontal>
@@ -49,7 +50,43 @@ const LandingPage = (props) => {
             />
             <br />
 
+            <Divider hidden />
+            <List divided verticalAlign='middle' size='huge' >
+                <List.Item>
+                    <List.Content floated='right'>
+                        <Button color='blue'>Add</Button>
+                        <Button color='red'>remove</Button>
+                    </List.Content>
+                    <Image avatar src='https://react.semantic-ui.com/images/avatar/small/lena.png' />
+                    <List.Content>Lena</List.Content>
+                </List.Item>
+                <List.Item>
+                    <List.Content floated='right'>
+                        <Button color='blue'>Add</Button>
+
+                    </List.Content>
+                    <Image avatar src='https://react.semantic-ui.com/images/avatar/small/lindsay.png' />
+                    <List.Content>Lindsay</List.Content>
+                </List.Item>
+                <List.Item>
+                    <List.Content floated='right'>
+                        <Button color='blue'>Add</Button>
+
+                    </List.Content>
+                    <Image avatar src='https://react.semantic-ui.com/images/avatar/small/mark.png' />
+                    <List.Content>Mark</List.Content>
+                </List.Item>
+                <List.Item>
+                    <List.Content floated='right'>
+                        <Button color='blue'>Add</Button>
+
+                    </List.Content>
+                    <Image avatar src='https://react.semantic-ui.com/images/avatar/small/molly.png' />
+                    <List.Content>Molly</List.Content>
+                </List.Item>
+            </List>
             <MediaCard {...props} movies={searched} cardType={MediaCardPageType.LandingPage} />
+
         </GridColumn>
     </Grid>
 }

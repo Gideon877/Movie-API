@@ -96,22 +96,9 @@ const Media = (props) => {
                 onClick={handleItemClick}
             />
         </Menu>
+        <Divider hidden />
 
-        {(!movies)
-            ?
-            <h4>NO movie Fam</h4>
-
-            : <Fragment>
-                <Header as='h2' attached='top'>
-                    My List
-        </Header>
-                <Segment attached>
-                    <UserMediaCard updateUser={props.updateUser} />
-                </Segment>
-
-            </Fragment>
-
-        }
+        {(movies) && <UserMediaCard updateUser={props.updateUser} />}
     </Fragment>
 
 }

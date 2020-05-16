@@ -11,7 +11,7 @@ const styles = {
     }
 }
 const Footer = () =>
-    <Segment color='blue' style={styles.footer} >
+    <Segment color='olive' style={styles.footer} >
         <List floated='right' horizontal>
             <List.Item href='https://github.com/Gideon877' target='_blank' >
                 © GitHub, Inc.

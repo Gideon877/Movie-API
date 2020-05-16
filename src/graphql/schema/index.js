@@ -25,6 +25,7 @@ module.exports = gql`
         title: String!
         creator: User!
         voteAverage: Float
+        createdAt: String!
     }
 
     type Playlist {

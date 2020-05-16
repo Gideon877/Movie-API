@@ -1,14 +1,16 @@
 import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
-import { Card, Image, Divider, Icon, Rating, Reveal, Dimmer, Loader } from 'semantic-ui-react';
+import { Card, Image, Divider, Icon, Rating, Reveal, Dimmer, Loader, List, Button } from 'semantic-ui-react';
 import { AuthContext } from 'context/auth-context';
 import { gql } from 'apollo-boost';
 import { useQuery } from 'react-apollo';
+import moment from 'moment'
 
 import AddMovieIcon from './AddMovieIcon';
 import RemoveMovieIcon from './RemoveMovieIcon';
 import { MediaCardPageType } from '../../helpers/constants'
 import MediaCard from './MediaCard';
+import FromNow from './FromNow';
 
 
 const GET_USER = gql`
@@ -25,6 +27,7 @@ const GET_USER = gql`
                 posterPath
                 releaseDate
                 title
+                createdAt
                 voteAverage
             }
         }
@@ -65,11 +68,29 @@ const UserMediaCard = ({ updateUser }) => {
             }
         }) || [];
 
-    return <MediaCard
-        updateUser={updateUser}
-        cardType={MediaCardPageType.Media}
-        movies={movies.map(movie => { return { ...movie, id: movie._id } })}
-    />
+
+    return <List divided verticalAlign='middle' relaxed animated selection size='huge'>
+        {
+            movies.map(movie => (
+                <List.Item>
+                    <List.Content floated='right'>
+                        <Button onClick={() => { alert('clicked: Remove') }}>Remove</Button>
+                        <Button onClick={() => { alert('clicked: More') }}>More</Button>
+                    </List.Content>
+                    <Image avatar src={'https://image.tmdb.org/t/p/w500' + movie.poster_path} />
+                    <List.Content>
+                        <List.Header>
+                            {movie.title}
+                        </List.Header>
+                        <List.Description>
+                            <FromNow date={movie.createdAt} text='added' />
+                            
+                        </List.Description>
+                    </List.Content>
+                </List.Item>
+            ))
+        }
+    </List>
 
 }
 

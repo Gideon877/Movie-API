@@ -1,8 +1,17 @@
 import React from 'react';
 import { List, Segment } from 'semantic-ui-react';
-
+const styles = {
+    footer: {
+        position: 'fixed',
+        left: 0,
+        bottom: 0,
+        height: '100px',
+        width: '100%',
+        backgroundColor: '#f5f5f5',
+    }
+}
 const Footer = () =>
-    <Segment color='blue'>
+    <Segment color='blue' style={styles.footer} >
         <List floated='right' horizontal>
             <List.Item href='https://github.com/Gideon877' target='_blank' >
                 © GitHub, Inc.

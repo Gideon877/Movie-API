@@ -41,7 +41,7 @@ const MenuLinkCheck = ({ currentPath }) => {
 
 
 const UnAuthorizedNavigation = (props) => {
-    return <Menu vertical pointing fixed='left' color='red' icon='labeled'>
+    return <Menu secondary inverted pointing fixed='top' color='orange' size='mini' icon='labeled'>
         <NavLink style={styles.link} to='/'>
             <Menu.Item disabled><Icon name='home' /> Home
         </Menu.Item>

@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Route } from 'react-router-dom';
-import { Container, Divider, Sidebar, Menu } from 'semantic-ui-react';
+import { Container, Divider, Sidebar, Menu, Grid, GridColumn } from 'semantic-ui-react';
 import { gql } from 'apollo-boost';
 import { AuthContext } from 'context/auth-context';
 import { useQuery } from 'react-apollo';
@@ -54,26 +54,19 @@ const MainLayout = ({ component: Component, ...rest }) => {
 
     return <Route {...rest}
         render={props =>
-            <Container>
-                <Sidebar
-                    as={Menu}
-                    animation='overlay'
-                    direction='left'
-                    icon='labeled'
-                    inverted
-                    onHide={() => setVisible(false)}
-                    vertical
-                    visible={visible}
-                    width='thin'
-                ><Navigation currentUser={currentUser} {...props} />
-                </Sidebar>
-                <Sidebar.Pusher>
+            <Grid columns={2}>
+                <GridColumn width={16}>
+                    <Navigation currentUser={currentUser} {...props} />
+                    <Divider hidden style={{
+                        height: '40px'
+                    }}/>
                     <Component updateUser={refetch} currentUser={currentUser} {...props} visible={visible} setVisible={setVisible} />
-                    <Divider section clearing />
+                    <Divider section clearing hidden style={{
+                        height: '100px'
+                    }}/>
                     <Footer />
-                </Sidebar.Pusher>
-
-            </Container>
+                </GridColumn>
+            </Grid>
         }
     />
 }

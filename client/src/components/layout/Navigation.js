@@ -23,7 +23,7 @@ const Navigation = (props) => {
     const mediaCount = (user && user.createdMovies) ? _.size(user.createdMovies) : 0
     return <AuthContext.Consumer>
         {(context) => (
-            <>
+            <Menu compact secondary pointing fixed='top' size='mini' color='olive' icon='labeled' inverted>
                 <NavLink style={styles.link} to='/home'>
                     <Menu.Item
                         name='home'
@@ -38,18 +38,16 @@ const Navigation = (props) => {
                         active={activeItem === 'film'}
                         onClick={handleItemClick}
                     ><Icon name='film' /> Media
-                    <Label color='teal' size='small' circular floating>{mediaCount}</Label>
                     </Menu.Item>
                 </NavLink>
-                <NavLink style={styles.link} to='/friends'>
+                {/**<NavLink style={styles.link} to='/friends'>
                     <Menu.Item
                         name='users'
                         active={activeItem === 'users'}
                         onClick={handleItemClick}
                     ><Icon name='users' /> Friends
-                    <Label color='teal' size='small' circular floating> 19</Label>
                     </Menu.Item>
-                </NavLink>
+                </NavLink> */}
 
                 <Menu.Menu position='right'>
                     <NavLink style={styles.link} to='/account'>
@@ -66,7 +64,7 @@ const Navigation = (props) => {
                     ><Icon name='power off' /> Logout
                     </Menu.Item>
                 </Menu.Menu>
-            </>
+            </Menu>
 
         )}
     </AuthContext.Consumer>

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { Input } from 'semantic-ui-react';
 
 const SearchInput = ({ onType, loading }) => {
-    return <Input iconPosition='right'
+    return <Input 
         loading={loading}
         fluid size='large'
         icon='search'

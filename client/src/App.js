@@ -52,127 +52,125 @@ const App = () => {
 					logout,
 				}}
 			>
-				<div className="App">
-					<main className="main-content">
-						<ToastProvider>
-							<Switch>
-								{state.token && (
-									<Redirect
-										from="/login"
-										to="/home"
-										exact
-									/>
-								)}
-								{!state.token && (
-									<Redirect
-										from="/home"
-										to="/login"
-										exact
-									/>
-								)}
-								{!state.token && (
-									<Redirect
-										from="/account"
-										to="/login"
-										exact
-									/>
-								)}
-								{!state.token && (
-									<Redirect
-										from="/media"
-										to="/login"
-										exact
-									/>
-								)}
-								{state.signedUp && (
-									<Redirect
-										from="/register"
-										to="/login"
-										exact
-									/>
-								)}
-								{/* state.token && <Redirect from='/home' to='/about' exact /> */}
-
-								{!state.token && (
-									<UnAuthorizedRoute
-										exact
-										path="/"
-										component={
-											LandingPage
-										}
-									/>
-								)}
-								{!state.token && (
-									<UnAuthorizedRoute
-										exact
-										path="/login"
-										component={
-											Login
-										}
-									/>
-								)}
-								{!state.token && (
-									<UnAuthorizedRoute
-										exact
-										path="/register"
-										component={
-											Registration
-										}
-									/>
-								)}
-
-								{state.token && (
-									<MainLayout
-										exact
-										path="/about"
-										component={
-											About
-										}
-									/>
-								)}
-								{state.token && (
-									<MainLayout
-										exact
-										path="/home"
-										component={
-											Home
-										}
-									/>
-								)}
-								{state.token && (
-									<MainLayout
-										exact
-										path="/media"
-										component={
-											Media
-										}
-									/>
-								)}
-								{state.token && (
-									<MainLayout
-										exact
-										path="/account"
-										component={
-											Account
-										}
-									/>
-								)}
-								<Route
-									path="*"
-									component={() => (
-										<h3 align="center">
-											404
-											NOT
-											FOUND
-										</h3>
-									)}
+				<main className="main-content">
+					<ToastProvider>
+						<Switch>
+							{state.token && (
+								<Redirect
+									from="/login"
+									to="/home"
+									exact
 								/>
-								{/**
+							)}
+							{!state.token && (
+								<Redirect
+									from="/home"
+									to="/login"
+									exact
+								/>
+							)}
+							{!state.token && (
+								<Redirect
+									from="/account"
+									to="/login"
+									exact
+								/>
+							)}
+							{!state.token && (
+								<Redirect
+									from="/media"
+									to="/login"
+									exact
+								/>
+							)}
+							{state.signedUp && (
+								<Redirect
+									from="/register"
+									to="/login"
+									exact
+								/>
+							)}
+							{/* state.token && <Redirect from='/home' to='/about' exact /> */}
+
+							{!state.token && (
+								<UnAuthorizedRoute
+									exact
+									path="/"
+									component={
+										LandingPage
+									}
+								/>
+							)}
+							{!state.token && (
+								<UnAuthorizedRoute
+									exact
+									path="/login"
+									component={
+										Login
+									}
+								/>
+							)}
+							{!state.token && (
+								<UnAuthorizedRoute
+									exact
+									path="/register"
+									component={
+										Registration
+									}
+								/>
+							)}
+
+							{state.token && (
+								<MainLayout
+									exact
+									path="/about"
+									component={
+										About
+									}
+								/>
+							)}
+							{state.token && (
+								<MainLayout
+									exact
+									path="/home"
+									component={
+										Home
+									}
+								/>
+							)}
+							{state.token && (
+								<MainLayout
+									exact
+									path="/media"
+									component={
+										Media
+									}
+								/>
+							)}
+							{state.token && (
+								<MainLayout
+									exact
+									path="/account"
+									component={
+										Account
+									}
+								/>
+							)}
+							<Route
+								path="*"
+								component={() => (
+									<h3 align="center">
+										404
+										NOT
+										FOUND
+									</h3>
+								)}
+							/>
+							{/**
 					<Redirect from='/' to='login' /> */}
-							</Switch>
-						</ToastProvider>
-					</main>
-				</div>
+						</Switch>
+					</ToastProvider>
+				</main>
 			</AuthContext.Provider>
 		</Router>
 	);

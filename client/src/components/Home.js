@@ -53,7 +53,7 @@ const Home = (props) => {
     const { firstName, lastName } = data.getUser;
 
     return (
-        <Responsive>
+        <>
             <Header as='h2' icon textAlign='center'>
                 <Icon name='search' circular link onClick={() => props.setVisible(!props.visible)} />
                 Search and Like
@@ -79,7 +79,7 @@ const Home = (props) => {
             />
             <br />
             <MediaCard {...props} movies={(searched.length > 0) ? searched : popular} />
-        </Responsive>
+        </>
     )
 }
 

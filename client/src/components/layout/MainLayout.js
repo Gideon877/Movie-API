@@ -54,7 +54,7 @@ const MainLayout = ({ component: Component, ...rest }) => {
 
     return <Route {...rest}
         render={props =>
-            <Grid columns={2}>
+            <Grid>
                 <GridColumn width={16}>
                     <Navigation currentUser={currentUser} {...props} />
                     <Divider hidden style={{

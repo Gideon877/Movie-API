@@ -9,10 +9,10 @@ const ViewMovieIcon = () =>  <Icon basic
     />
 
 ViewMovieIcon.propTypes = {
-    image: PropTypes.string.isRequired,
-    header: PropTypes.string.isRequired,
-    meta: PropTypes.string.isRequired,
-    description: PropTypes.string.isRequired,
+    // image: PropTypes.string.isRequired,
+    // header: PropTypes.string.isRequired,
+    // meta: PropTypes.string.isRequired,
+    // description: PropTypes.string.isRequired,
 }
 
 export default ViewMovieIcon;

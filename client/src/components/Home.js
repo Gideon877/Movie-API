@@ -9,6 +9,7 @@ import { useToasts } from 'react-toast-notifications';
 import { AuthContext } from 'context/auth-context';
 import MediaCard from './media/MediaCard';
 import SearchInput from './media/SearchInput';
+import { MediaCardPageType } from '../helpers/constants'
 
 const _ = require('lodash');
 
@@ -78,7 +79,7 @@ const Home = (props) => {
                 }}
             />
             <br />
-            <MediaCard {...props} movies={(searched.length > 0) ? searched : popular} />
+            <MediaCard {...props} cardType={MediaCardPageType.Home} movies={(searched.length > 0) ? searched : popular} />
         </>
     )
 }

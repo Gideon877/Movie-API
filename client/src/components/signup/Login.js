@@ -46,16 +46,23 @@ const Login = () => {
                 .then((res) => {
                     const { token, userId, tokenExpiration } = res.data.signIn;
                     auth.login(userId, token, tokenExpiration);
-                    setLoading(false);
-                    addToast('Signed in.', { appearance: 'success', autoDismiss: true})
+                    addToast('Signed in.', {
+                        appearance: 'success',
+                        autoDismissTimeout: 2000,
+                        autoDismiss: true,
+                        placement: 'bottom-center',
+                    })
+                    setInterval(() => setLoading(false), 2000)
                 })
                 .catch(err => {
-                    addToast(_.get(err, ["message"]), { appearance: 'error', autoDismiss: true})
+                    addToast(_.get(err, ["message"]), {
+                        appearance: 'error',
+                        autoDismissTimeout: 2000,
+                        autoDismiss: true,
+                        placement: 'top-center',
+                    })
                     setErrors({ api: _.get(err, ["message"]) });
-                    setInterval(()=> {
-                    setLoading(false)
-
-                    }, 2000)
+                    setInterval(() => setLoading(false), 2000)
                 })
 
         }}
@@ -63,7 +70,7 @@ const Login = () => {
         {({ errors, status, touched }) => (
             <><br className="my-4" />
                 <Header as='h2' icon textAlign='center'>
-                        <Icon name='user secret' circular /> Login
+                    <Icon name='user secret' circular /> Login
                         <Header.Subheader> Enter your username and password to login.</Header.Subheader>
                 </Header>
                 <Divider />

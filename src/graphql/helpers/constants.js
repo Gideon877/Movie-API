@@ -1,6 +1,6 @@
 const userType = {
     User: "USER",
-    Admin: "ADMIN" 
+    Admin: "ADMIN"
 };
 
 const PlaylistType = {

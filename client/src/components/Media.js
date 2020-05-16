@@ -5,6 +5,7 @@ import { AuthContext } from 'context/auth-context';
 import { useQuery } from '@apollo/react-hooks';
 import { gql } from 'apollo-boost';
 import UserMediaCard from './media/UserMediaCard';
+import { MediaCardPageType } from '../helpers/constants'
 
 const GET_USER = gql`
     query getUser ($userId: ID!) {
